@@ -5,23 +5,9 @@ import AddButton from "../../../components/Buttons/AddButton";
 import FilterButton from "../../../components/Buttons/FilterButton";
 import Form from "./Form";
 import usePageRouter from "../../../hooks/useObjectRouter";
-import bookService from "../../../services/bookService";
-import { useQuery } from "react-query";
 
 const Books = () => {
   const { navigateQuery } = usePageRouter();
-
-  // const {
-  //   data: books,
-  //   isLoading,
-  //   refetch,
-  // } = useQuery(
-  //   ["GET_BOOK_LIST"],
-  //   () => {
-  //     return bookService.getList();
-  //   }
-  // );
-  //     console.log('books', books);
       
   const headColumns = useMemo(() => {
     return [

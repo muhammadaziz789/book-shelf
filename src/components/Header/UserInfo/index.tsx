@@ -1,44 +1,14 @@
 import { ArrowDownFilled, LogoutIcon } from "../../IconGenerator/Svg";
 import cls from "./style.module.scss";
 import ContextMenu from "../../ContextMenu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { authActions } from "../../../store/auth/auth.slice";
 import { useDispatch, useSelector } from "react-redux";
-import md5 from "md5";
-// import { baseURL } from "../../../utils/requestAuth";
+
 const UserInfo = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.auth.user);
-
-  useEffect(() => {
-    const apiUrl = "https://no23.lavina.tech"; // Replace with the actual API URL
-    const userKey = user.key
-    const userSecret = user.secret // Replace with the user secret
-    console.log('userSecret', userSecret);
-    
-    // Construct the authorization string
-    const method = "GET";
-    const body = ""; // Empty for GET requests
-    const concatenatedString = `${method}+/books+${body}+${user.secret}`;
-    const sign = md5(concatenatedString); // Calculate the MD5 hash
-
-    // Make the GET request
-    fetch(apiUrl + '/books', {
-      method: "GET",
-      headers: {
-        Key: userKey,
-        Sign: sign,
-      },
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        console.log('responseData', res);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
 
   return (
     <div className={cls.wrapper}>
