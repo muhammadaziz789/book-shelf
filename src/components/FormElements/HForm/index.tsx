@@ -35,9 +35,7 @@ const HForm = ({
     <form onSubmit={onSubmit} ref={formRef} style={{ ...styles }}>
       {children}
       {footer && (
-        <div className={cls.btns}>
-          <button type="submit">Register</button>
-        </div>
+        <div className={cls.btns}>{/* Include your buttons here */}</div>
       )}
     </form>
   );

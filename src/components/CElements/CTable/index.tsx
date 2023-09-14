@@ -12,11 +12,10 @@ import { useEffect, useMemo, useState } from "react";
 
 import { useLocation } from "react-router-dom";
 import TabbleActions from "./Details/Actions";
-
-// import { useGetQueries } from "../../../hooks/useGetQueries";
 import { DotsIcon } from "../../IconGenerator/Svg";
 import { t } from "i18next";
-// import tableState from "../../../store/table";
+import { useDispatch, useSelector } from "react-redux";
+import { tableSizeAction } from "../../../store/tableSize/tableSizeSlice";
 
 interface Props {
   count?: number;
@@ -44,7 +43,7 @@ const CTable = ({
   clickable = false,
   isLoading = false,
   passRouter = true,
-  isResizeble = false,
+  isResizeble = true,
   idForTable,
   disablePagination = false,
   autoHeight = false,
@@ -54,15 +53,15 @@ const CTable = ({
   handleRowClick = () => {},
   handleActions = () => {},
 }: Props) => {
+  const tableSize = useSelector((state: any) => state.tableSize.tableSize);
   const location = useLocation();
-  const tableSize: Record<number, any> = {};
   const tableSettings: Record<string, any> = {};
   const [headColHeight, setHeadColHeight] = useState(45);
   const [tableHeight, setTableHeight] = useState(500);
   const [currentLimit, setCurrentLimit] = useState(10);
   //   const { currentSort } = useGetQueries();
   const [currentIndex, setCurrentIndex] = useState(null);
-
+  const dispatch = useDispatch()
   const bodySource = useMemo(() => {
     if (!bodyColumns?.length) return [];
     let list = [];
@@ -111,7 +110,7 @@ const CTable = ({
     const createResizableTable = function (table: any) {
       if (!table) return;
       const cols = table.querySelectorAll("th");
-      [].forEach.call(cols, function (col: any) {
+      [].forEach.call(cols, function (col: any, idx: number) {
         // Add a resizer element to the column
         const resizer = document.createElement("span");
         resizer.classList.add("resizer");
@@ -120,11 +119,11 @@ const CTable = ({
 
         col.appendChild(resizer);
         setHeadColHeight(col.offsetHeight);
-        createResizableColumn(col, resizer);
+        createResizableColumn(col, resizer, idx);
       });
     };
 
-    const createResizableColumn = function (col: any, resizer: any) {
+    const createResizableColumn = function (col: any, resizer: any, idx: number) {
       let x = 0;
       let w = 0;
 
@@ -142,18 +141,18 @@ const CTable = ({
 
       const mouseMoveHandler = function (e: any) {
         const dx = e.clientX - x;
-        // const colID = col.getAttribute("id");
+        const colID = col.getAttribute("id");
         const colWidth = w + dx;
-        // dispatch(tableSizeAction.setTableSize({ pageName, colID, colWidth }));
-        // dispatch(
-        //   tableSizeAction.setTableSettings({
-        //     pageName,
-        //     colID,
-        //     colWidth,
-        //     isStiky: "ineffective",
-        //     colIdx: idx - 1,
-        //   })
-        // );
+        dispatch(tableSizeAction.setTableSize({ pageName, colID, colWidth }));
+        dispatch(
+          tableSizeAction.setTableSettings({
+            pageName,
+            colID,
+            colWidth,
+            isStiky: "ineffective",
+            colIdx: idx - 1,
+          })
+        );
         col.style.width = `${colWidth}px`;
       };
 

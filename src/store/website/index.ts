@@ -1,8 +1,17 @@
-import { observable } from 'mobx';
+import { createSlice } from "@reduxjs/toolkit";
 
-const websiteState = observable({
-  routes: {},
-  loading: false,
-});
+const initialState = {
+  routes: {}
+};
 
-export default websiteState;
+export const { actions: websiteActions, reducer: websiteReducer } = createSlice(
+  {
+    name: "website",
+    initialState,
+    reducers: {
+      setRoutes: (state: any, { payload }) => {
+        state.routes = payload;
+      },
+    },
+  }
+);

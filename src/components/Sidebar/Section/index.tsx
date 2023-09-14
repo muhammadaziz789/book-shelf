@@ -1,19 +1,19 @@
 import cls from "./style.module.scss";
-import { observer } from "mobx-react";
-import websiteState from "../../../store/website";
 import { useMemo } from "react";
 import IconGenerator from "../../IconGenerator";
 import usePageRouter from "../../../hooks/useObjectRouter";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const SidebarSection = observer(() => {
+const SidebarSection = () => {
   const { checkPath } = usePageRouter();
   const { t } = useTranslation();
+  const routes = useSelector((state: any) => state.website.routes)
 
   const List = useMemo(() => {
-    return websiteState.routes;
-  }, [websiteState.routes]);
+    return routes ?? []
+  }, [routes]);
 
   return (
     <div className={cls.section}>
@@ -50,6 +50,6 @@ const SidebarSection = observer(() => {
       ))}
     </div>
   );
-});
+};
 
 export default SidebarSection;

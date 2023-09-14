@@ -1,17 +1,10 @@
 {
-  "finance": "Moliya",
-  "passengers": "Yo‘lovchilar",
-  "drivers": "Haydovchilar",
-  "infos": "Ma’lumotlar",
-  "passengers_list": "Yo'lovchilar ro'yxati",
+  "main": "Asosiy",
+  "books_list": "Kitoblar ro'yxati",
+  "books": "Kitoblar",
+  "new_book": "Yangi kitob",
+  "add_new_book": "Yangi kitob qo'shish",
   "edit": "Tahrirlash",
-  "delete": "O‘chirib yuborish",
-  "new_passenger": "Yangi yo'lovchi",
-  "filter": "Filtirlash",
-  "confirm": "Tasdiqlash",
-  "cancel": "Bekor qilish",
-  "new_driver": "Yangi haydovchi",
-  "phone_number": "Tel.raqam",
-  "add_new_passenger": "Yangi yo'lovchi qo'shish",
-  "learn_more": "Batafsil ma'lumot"
+  "delete": "O'chirish tashlash",
+  "welcome": "Hush kelibsiz"
 }

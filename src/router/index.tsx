@@ -4,37 +4,26 @@ import MainLayout from "../layouts/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../views/Auth/Login";
 import Registration from "../views/Auth/Registration";
-import Passengers from "../views/Passengers/Passengers";
-import websiteState from "../store/website";
-import ActivePassengers from "../views/Passengers/Active";
-import Statistics from "../views/Passengers/Statistics";
-import Drivers from "../views/Drivers/Drivers";
-import UndefinedPage from "../views/Undefined";
-import ActiveDrivers from "../views/Drivers/Actives";
-import Driver from "../views/Drivers/Drivers/Driver";
-import Vehicles from "../views/Drivers/Vehicles";
-
-interface Path {
+import { useDispatch, useSelector } from "react-redux";
+import { websiteActions } from '../store/website/index'
+import Books from "../views/Main/Books";
+interface Props {
   parent: string;
   link: string;
   title: string;
   icon: string;
   sidebar: boolean;
-  card_info?: string;
 }
 
 const Router = () => {
-  const isAuth = true;
+  const dispatch = useDispatch()
+  const isAuth = useSelector((state: any) => state.auth.isAuth);
   const [list, setList] = useState<string[]>([]);
   const [routes, setRoutes] = useState({
-    passengers: [],
-    drivers: [],
-    infos: [],
-    admins: [],
-    settings: []
+    main: [],
   });
 
-  const getPath = ({ parent, link, title, icon, sidebar, card_info }: Path) => {
+  const getPath = ({ parent, link, title, icon, sidebar }: Props) => {
     const path = `${parent}/${link}`;
     const obj = {
       path: path,
@@ -43,7 +32,6 @@ const Router = () => {
       id: path,
       title,
       icon,
-      card_info,
     };
 
     if (!list.includes(obj.id)) {
@@ -58,19 +46,19 @@ const Router = () => {
   };
 
   useEffect(() => {
-    websiteState.routes = routes;
+    dispatch(websiteActions.setRoutes({ ...routes }));
   }, []);
 
   if (!isAuth) {
     return (
       <Routes>
         <Route path="/" element={<AuthLayout />}>
-          <Route index element={<Navigate to="/login" />} />
-          <Route path="login" element={<Login />} />
+          <Route index element={<Navigate to="/registration" />} />
           <Route path="registration" element={<Registration />} />
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/registration" />} />
         </Route>
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/registration" />} />
       </Routes>
     );
   }
@@ -79,147 +67,16 @@ const Router = () => {
     <Suspense fallback={"Loading..."}>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<Navigate to="passengers/main" />} />
+          <Route index element={<Navigate to="main/books" />} />
           <Route
             path={getPath({
-              parent: "passengers",
-              link: "main",
+              parent: "main",
+              link: "books",
               sidebar: true,
-              title: "Yo'lovchilar",
+              title: "books",
               icon: "admins",
             })}
-            element={<Passengers />}
-          />
-          <Route
-            path={getPath({
-              parent: "passengers",
-              link: "active_passengers",
-              sidebar: true,
-              title: "Aktiv yo‘lovchilar",
-              icon: "admin",
-            })}
-            element={<ActivePassengers />}
-          />
-          <Route
-            path={getPath({
-              parent: "passengers",
-              link: "statistics",
-              sidebar: true,
-              title: "Statistika: yo‘lovchi",
-              icon: "statistics",
-            })}
-            element={<Statistics />}
-          />
-
-          <Route
-            path={getPath({
-              parent: "drivers",
-              link: "main",
-              sidebar: true,
-              title: "Haydovchilar",
-              icon: "driving",
-            })}
-            element={<Drivers />}
-          />
-          <Route
-            path={getPath({
-              parent: "drivers",
-              link: "driver/:id",
-              sidebar: false,
-              title: "Haydovchilar",
-              icon: "",
-            })}
-            element={<Driver />}
-          />
-          <Route
-            path={getPath({
-              parent: "drivers",
-              link: "active",
-              sidebar: true,
-              title: "Aktiv haydovchilar",
-              icon: "smart_car",
-            })}
-            element={<ActiveDrivers />}
-          />
-          <Route
-            path={getPath({
-              parent: "drivers",
-              link: "cars",
-              sidebar: true,
-              title: "Mashinalar",
-              icon: "car",
-            })}
-            element={<Vehicles />}
-          />
-          <Route
-            path={getPath({
-              parent: "drivers",
-              link: "route",
-              sidebar: true,
-              title: "Viloyat qatnovi",
-              icon: "routing",
-            })}
-            element={<UndefinedPage />}
-          />
-          <Route
-            path={getPath({
-              parent: "drivers",
-              link: "statistics",
-              sidebar: true,
-              title: "Statistika: haydovchi",
-              icon: "graph",
-            })}
-            element={<UndefinedPage />}
-          />
-          <Route
-            path={getPath({
-              parent: "infos",
-              link: "calendar",
-              sidebar: true,
-              title: "Kalendar",
-              icon: "calendar",
-            })}
-            element={<UndefinedPage />}
-          />
-          <Route
-            path={getPath({
-              parent: "infos",
-              link: "chats",
-              sidebar: true,
-              title: "Chatlar",
-              icon: "chat",
-            })}
-            element={<UndefinedPage />}
-          />
-          <Route
-            path={getPath({
-              parent: "admins",
-              link: "admin",
-              sidebar: true,
-              title: "Adminlar",
-              icon: "admin",
-            })}
-            element={<UndefinedPage />}
-          />
-          <Route
-            path={getPath({
-              parent: "admins",
-              link: "rolls",
-              sidebar: true,
-              title: "Rollar",
-              icon: "rolls",
-            })}
-            element={<UndefinedPage />}
-          />
-          <Route
-            path={getPath({
-              parent: "settings",
-              link: "price_control",
-              sidebar: true,
-              title: "Narx nazorati",
-              icon: "price_control",
-            })}
-            element={<UndefinedPage />}
+            element={<Books />}
           />
         </Route>
       </Routes>

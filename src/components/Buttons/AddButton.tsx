@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 interface Props {
   text?: string;
   iconLeft?: any;
+  type?: string;
   onClick?: (val?: any) => void
 }
 

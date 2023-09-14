@@ -6,14 +6,9 @@ const AuthLayout = () => {
     <div className={styles.layout}>
       <div className={styles.leftSide}>
         <div className={styles.logoBlock}>
-          auth
-          {/* <LogoIcon fill="white" width="160" height="160" /> */}
-          <h1 className={styles.title}>Добро пожаловать</h1>
+          <img src="/logo.svg" alt="logo" />
+          <h1 className={styles.title}>Welcome</h1>
         </div>
-
-        {/* <div className={styles.subtitleBlock}>
-          © Soliq Servis. Все права защищены
-        </div> */}
       </div>
       <div className={styles.rightSide}>
         <Outlet />

@@ -1,8 +1,8 @@
 import cls from "./style.module.scss";
 import CSearchInput from "../CElements/CSearchInput";
-import Notification from "./Notification";
 import UserInfo from "./UserInfo";
-export const Header = () => {
+import { memo } from "react";
+const Header = () => {
   return (
     <div>
       <div
@@ -10,7 +10,6 @@ export const Header = () => {
       >
         <CSearchInput />
         <div className="flex items-center">
-          <Notification />
           <div className={`${cls.line} mx-[30px] bg-[var(--lineGray)]`}></div>
           <UserInfo />
         </div>
@@ -18,3 +17,5 @@ export const Header = () => {
     </div>
   );
 };
+
+export default memo(Header)
