@@ -5,27 +5,42 @@ import AddButton from "../../../components/Buttons/AddButton";
 import FilterButton from "../../../components/Buttons/FilterButton";
 import Form from "./Form";
 import usePageRouter from "../../../hooks/useObjectRouter";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import bookService from "../../../services/bookService";
 
 const Books = () => {
   const { navigateQuery } = usePageRouter();
-      
+  const user = useSelector((state: any) => state.auth.user)
+
+  const { data: bookList } = useQuery<any>(
+    ["GET_BOOK_LIST", user],
+    () => {
+      return bookService.getList({ key: user.key, sign: user.secret });
+    },
+    {
+      enabled: !!user.key,
+    }
+  );
+    console.log('bookList 22', bookList);
+    
   const headColumns = useMemo(() => {
     return [
       {
-        title: "Ism familya",
-        id: "full_name",
+        title: "title",
+        id: "title",
       },
       {
-        title: "Viloyat",
-        id: "region",
+        title: "cover",
+        id: "cover",
       },
       {
-        title: "Tel.raqam",
-        id: "phone_number",
+        title: 'author',
+        id: 'author'
       },
       {
-        title: "Tug‘ilgan sana",
-        id: "birth_date",
+        title: 'published',
+        id: 'published'
       },
       {
         title: "",
@@ -35,68 +50,9 @@ const Books = () => {
     ];
   }, []);
 
-  const bodyColumns = [
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-    {
-      full_name: "Javohir Zokirov",
-      region: "Qashqadaryo",
-      phone_number: "+998 99 499 31 30",
-      birth_date: "2001-yil, 17-dekabr",
-    },
-  ];
+  const bodyColumns = useMemo(() => {
+    return bookList ?? []
+  }, [bookList])
 
   return (
     <>

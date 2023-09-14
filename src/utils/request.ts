@@ -2,7 +2,6 @@ import axios from "axios";
 import { store } from "../store/index";
 import { showAlert } from "../store/alert/alert.thunk";
 import { authActions } from "../store/auth/auth.slice";
-import md5 from 'md5'
 
 export const baseURL = import.meta.env.VITE_BASE_URL;
 

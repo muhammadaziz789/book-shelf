@@ -5,8 +5,8 @@ import HFTextField from "../../components/FormElements/HFTextField";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth/auth.slice";
 import usePageRouter from "../../hooks/useObjectRouter";
-import useAuth from "../../services/auth/useAuth";
 import md5 from 'md5'
+import useAuth from "../../services/auth/useAuth";
 
 const Registration = () => {
   const { navigateTo } = usePageRouter();
@@ -17,59 +17,23 @@ const Registration = () => {
     resolver: yupResolver(schema),
   });
 
-  // const { signup } = useAuth({
-  //   registerProps: {
-  //     onSuccess: (res: any) => {
-        // const states = {
-        //   user: res,
-        //   isAuth: true,
-        // };
-        // if (res?.id) {
-        //   dispatch(authActions.login(states));
-        //   navigateTo("/main/books");
-        // }
-  //     },
-  //   },
-  // });
-
-  const onSubmit = (data: any) => {
-    // signup.mutate(JSON.stringify(data));
-
-    const apiUrl = "https://no23.lavina.tech"; // Replace with the actual API URL
-    const userKey = data.key
-    const userSecret = data.secret // Replace with the user secret
-
-    // Construct the authorization string
-    const method = "GET";
-    const body = ""; // Empty for GET requests
-    const concatenatedString = `${method}+${apiUrl}+${body}+${userSecret}`;
-    const sign = md5(concatenatedString); // Calculate the MD5 hash
-
-    // Make the GET request
-    fetch(apiUrl + '/signup', {
-      method: "POST",
-      headers: {
-        Key: userKey,
-        Sign: sign,
-      },
-      body: JSON.stringify(data)
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        console.log('responseData', res);
+  const { signup } = useAuth({
+    registerProps: {
+      onSuccess: (res: any) => {
         const states = {
-          user: res.data,
+          user: res,
           isAuth: true,
         };
-        if (res?.data?.id) {
+        if (res?.id) {
           dispatch(authActions.login(states));
           navigateTo("/main/books");
         }
-        
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+      },
+    },
+  });
+
+  const onSubmit = (data: any) => {
+    signup.mutate(JSON.stringify(data));
   };
 
   return (

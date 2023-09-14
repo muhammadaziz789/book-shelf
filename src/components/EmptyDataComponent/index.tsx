@@ -1,7 +1,8 @@
+import { t } from "i18next";
 import "./style.scss";
 import companyLogo from "/images/website/no-data.png";
 
-const EmptyDataComponent = ({ title = "Ma'lumot mavjud emas", isVisible }: { title?: string; isVisible?: boolean }) => {
+const EmptyDataComponent = ({ title = "no_books", isVisible }: { title?: string; isVisible?: boolean }) => {
   if (!isVisible) return null;
 
   return (
@@ -10,7 +11,7 @@ const EmptyDataComponent = ({ title = "Ma'lumot mavjud emas", isVisible }: { tit
         <div className="icon">
           <img src={companyLogo} alt="img" />
         </div>
-        <p className="text text-[var(--black)]">{title}</p>
+        <p className="text text-[var(--black)]">{t(title)}</p>
       </div>
     </div>
   );
