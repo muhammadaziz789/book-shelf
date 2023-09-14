@@ -58,6 +58,7 @@ const HFTextField = ({
             name={name}
             error={Boolean(error)}
             helperText={error?.message}
+            className={error?.message ? 'error' : ''}
             {...props}
             type={props.type || "text"}
             disabled={disabled}

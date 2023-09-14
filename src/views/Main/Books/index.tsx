@@ -7,13 +7,13 @@ import Form from "./Form";
 import usePageRouter from "../../../hooks/useObjectRouter";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import bookService from "../../../services/bookService";
+import bookService from "../../../services/bookService/bookService";
 
 const Books = () => {
   const { navigateQuery } = usePageRouter();
   const user = useSelector((state: any) => state.auth.user)
 
-  const { data: bookList } = useQuery<any>(
+  const { data: bookList, refetch, isLoading } = useQuery<any>(
     ["GET_BOOK_LIST", user],
     () => {
       return bookService.getList({ key: user.key, sign: user.secret });
@@ -22,25 +22,32 @@ const Books = () => {
       enabled: !!user.key,
     }
   );
-    console.log('bookList 22', bookList);
     
   const headColumns = useMemo(() => {
     return [
       {
-        title: "title",
-        id: "title",
+        title: 'NO',
+        id: 'order',
       },
       {
-        title: "cover",
-        id: "cover",
+        title: "title",
+        id: "title",
       },
       {
         title: 'author',
         id: 'author'
       },
       {
-        title: 'published',
+        title: 'published_year',
         id: 'published'
+      },
+      {
+        title: 'pages',
+        id: 'pages'
+      },
+      {
+        title: 'ISBN',
+        id: 'isbn'
       },
       {
         title: "",
@@ -51,9 +58,11 @@ const Books = () => {
   }, []);
 
   const bodyColumns = useMemo(() => {
-    return bookList ?? []
+    return bookList?.map((item: any, order: number) => {
+      return { ...item.book, order: order + 1 }
+    }) ?? []
   }, [bookList])
-
+  
   return (
     <>
       <SectionHeader title="books_list">
@@ -65,9 +74,9 @@ const Books = () => {
           />
         </div>
       </SectionHeader>
-      <CTable headColumns={headColumns} bodyColumns={bodyColumns} count={10} />
+      <CTable isLoading={isLoading} headColumns={headColumns} bodyColumns={bodyColumns} count={bodyColumns.length} disablePagination={true} />
 
-      <Form />
+      <Form refetch={refetch} user={user} />
     </>
   );
 };

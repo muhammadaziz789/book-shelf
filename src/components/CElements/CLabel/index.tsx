@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import cls from "./style.module.scss";
 
 interface Props {
@@ -10,7 +11,7 @@ const CLabel = ({ title = "label", required, styles = {} }: Props) => {
   return (
     <p className={cls.label} style={{ ...styles }}>
       {required ? <span className={cls.required}>*</span> : ""}
-      {title}
+      {t(title)}
     </p>
   );
 }

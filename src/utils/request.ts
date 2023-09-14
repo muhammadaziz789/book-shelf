@@ -19,6 +19,7 @@ const errorHandler = (error: any) => {
     });
     store.dispatch(authActions.logout());
   } else if (status === 401) {
+    store.dispatch(authActions.logout())
     console.log('refresh token');
   } else store.dispatch(showAlert({ title: "___ERROR___" }));
 

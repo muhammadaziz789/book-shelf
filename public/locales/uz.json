@@ -7,5 +7,13 @@
   "edit": "Tahrirlash",
   "delete": "O'chirish tashlash",
   "welcome": "Hush kelibsiz",
-  "no_books": "Sizda kitoblar mavjud emas"
+  "no_books": "Sizda kitoblar mavjud emas",
+  "confirm": "Tasdiqlash",
+  "cancel": "Bekor qilish",
+  "name": "Nomi",
+  "title": "Sarlavha",
+  "author": "Muallif",
+  "published_year": "Chop etilgan sana",
+  "pages": "Sahifalar",
+  "number": "Raqam"
 }

@@ -14,7 +14,7 @@ const AddButton = ({ text = '', iconLeft = true, ...props }: Props) => {
   const { t } = useTranslation()
   return (
     <div id="addBtn" {...props}>
-      <Button>
+      <Button type="submit">
         {iconLeft === true ? <PlusIcon /> : iconLeft}
         <span className="font-[600] ml-1">{t(text)}</span>
       </Button>

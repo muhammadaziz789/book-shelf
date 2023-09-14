@@ -230,23 +230,13 @@ const CTable = ({
       handleGetHeightFn();
     }
   };
-
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    console.log(isLoading);
-    
-    setTimeout(() => {
-      setLoading(false)
-    }, 300);
-  }, [])
   
   return (
     <div id="table">
       <CTableWrapper
         count={count}
         currentLimit={currentLimit}
-        loader={loading}
+        loader={isLoading}
         height={tableHeight}
         limitCount={limitCount}
         passRouter={passRouter}
@@ -325,7 +315,7 @@ const CTable = ({
           </CTableRow>
         </CTableHead>
         <CTableBody
-          loader={loading}
+          loader={isLoading}
           columnsCount={headColumns?.length}
           rowsCount={currentLimit}
           dataLength={bodySource?.length}

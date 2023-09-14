@@ -19,7 +19,7 @@ const ContextMenu: FC<Props> = ({
 
   const style = {
     top: position.y,
-    left: position.x,
+    right: position.x,
   };
 
   return (

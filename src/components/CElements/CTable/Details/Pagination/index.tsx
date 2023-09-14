@@ -16,6 +16,7 @@ interface Props {
   currentPage: number;
   count: number;
   dataLength: number;
+  disablePagination?: boolean;
   setCurrentPage: (newPage: number) => void;
   setCurrentLimit: (newLimit: number) => void;
 }
@@ -28,6 +29,7 @@ const CPagination = ({
   setCurrentPage,
   setCurrentLimit,
   dataLength,
+  disablePagination,
   ...props
 }: Props) => {
   const location = useLocation();
@@ -41,7 +43,7 @@ const CPagination = ({
     limit?: any;
     page: number;
     queryLimit?: any;
-    something?: any
+    something?: any;
   }) {
     if (queryObj?.limit) queryObj.limit = parseInt(queryObj.limit, 10);
     if (!passRouter) {
@@ -49,7 +51,7 @@ const CPagination = ({
       if (queryObj?.limit) setCurrentLimit(queryObj.queryLimit);
       return;
     }
-    
+
     const newPage = queryObj.page.toString();
     const newQuery = {
       ...query,
@@ -70,16 +72,24 @@ const CPagination = ({
         limitCount={limitCount}
         handleRouteActions={handleRouteActions}
       /> */}
-      <p className="text-[var(--gray)]">{count.count} tadan 1-{dataLength} tasi</p>
-      <Pagination
-        onChange={(e, val) =>
-          handleRouteActions({ page: val, queryLimit: query?.limit, something: e  })
-        }
-        {...props}
-        count={count.tableCount}
-        page={currentPage}
-        defaultPage={currentPage}
-      />
+      <p className="text-[var(--gray)]">
+        {count.count} tadan 1-{dataLength} tasi
+      </p>
+      {!disablePagination && (
+        <Pagination
+          onChange={(e, val) =>
+            handleRouteActions({
+              page: val,
+              queryLimit: query?.limit,
+              something: e,
+            })
+          }
+          {...props}
+          count={count.tableCount}
+          page={currentPage}
+          defaultPage={currentPage}
+        />
+      )}
     </div>
   );
 };

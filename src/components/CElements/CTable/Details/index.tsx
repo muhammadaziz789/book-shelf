@@ -21,7 +21,7 @@ interface Props {
   setCurrentPage: (newPage: any) => void;
   setCurrentLimit: (newLimit: any) => void;
   children: ReactNode;
-  disablePagination?: any;
+  disablePagination?: boolean;
   dataLength: number;
 }
 
@@ -39,6 +39,7 @@ export const CTableWrapper = ({
   setCurrentPage,
   dataLength,
   children,
+  disablePagination
 }: Props) => {
   return (
     <Paper className="CTableContainer" style={wrapperStyle}>
@@ -62,6 +63,7 @@ export const CTableWrapper = ({
             setCurrentPage={setCurrentPage}
             setCurrentLimit={setCurrentLimit}
             dataLength={dataLength}
+            disablePagination={disablePagination}
           />
         ) : (
           ""

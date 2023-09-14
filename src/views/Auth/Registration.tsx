@@ -5,7 +5,6 @@ import HFTextField from "../../components/FormElements/HFTextField";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth/auth.slice";
 import usePageRouter from "../../hooks/useObjectRouter";
-import md5 from 'md5'
 import useAuth from "../../services/auth/useAuth";
 
 const Registration = () => {

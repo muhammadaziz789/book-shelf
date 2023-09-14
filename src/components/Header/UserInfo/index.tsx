@@ -1,7 +1,7 @@
 import { ArrowDownFilled, LogoutIcon } from "../../IconGenerator/Svg";
 import cls from "./style.module.scss";
 import ContextMenu from "../../ContextMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authActions } from "../../../store/auth/auth.slice";
 import { useDispatch, useSelector } from "react-redux";
 import authService from "../../../services/auth/authService";
@@ -21,7 +21,16 @@ const UserInfo = () => {
       enabled: !!user.key,
     }
   );
-  
+
+  useEffect(() => {
+    if (!userInfo?.name) return;
+    const states = {
+      user: userInfo,
+      isAuth: true,
+    };
+    dispatch(authActions.login(states));
+  }, [userInfo]);
+
   return (
     <div className={cls.wrapper}>
       <div
@@ -36,7 +45,9 @@ const UserInfo = () => {
         </div>
       </div>
       <div className="pl-4 py-3">
-        <ArrowDownFilled />
+        <div className={`duration-300 ${open ? 'rotate-[0]' : 'rotate-[180deg]'}`}>
+          <ArrowDownFilled />
+        </div>
       </div>
 
       <ContextMenu
