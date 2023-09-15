@@ -15,9 +15,9 @@ interface Props {
   password?: boolean;
   defaultValue?: any;
   setPassword?: (val?: any) => void;
-  setValue?: (val1?: any, val2?: any) => void;
+  setValue?: (name?: any | string, value?: any) => void;
   type?: string;
-  placeholder?: string
+  placeholder?: string;
 }
 
 const HFTextField = ({
@@ -33,9 +33,10 @@ const HFTextField = ({
   setValue = () => {},
   ...props
 }: Props) => {
+
   useEffect(() => {
     if (defaultValue) {
-      setValue(name, defaultValue);
+      setValue(name as string, defaultValue); // Explicitly annotate 'name' as string
     }
   }, [defaultValue, name, setValue]);
 
@@ -58,7 +59,7 @@ const HFTextField = ({
             name={name}
             error={Boolean(error)}
             helperText={error?.message}
-            className={error?.message ? 'error' : ''}
+            className={error?.message ? "error" : ""}
             {...props}
             type={props.type || "text"}
             disabled={disabled}

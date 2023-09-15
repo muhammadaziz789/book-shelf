@@ -1,3 +1,4 @@
+import Languages from './Languages';
 import Search from './Search'
 import cls from "./style.module.scss";
 import UserInfo from "./UserInfo";
@@ -11,6 +12,7 @@ const Header = () => {
       >
         <Search />
         <div className="flex items-center">
+          <Languages />
           <div className={`${cls.line} mx-[30px] bg-[var(--lineGray)]`}></div>
           <UserInfo />
         </div>

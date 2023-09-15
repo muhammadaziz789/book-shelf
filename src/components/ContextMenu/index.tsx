@@ -6,6 +6,7 @@ interface Props {
   children?: ReactNode;
   position: { y: number; x: number };
   visible: boolean;
+  classes?: string;
   closeContextMenu: (val?: any) => void;
 }
 
@@ -14,6 +15,7 @@ const ContextMenu: FC<Props> = ({
   position,
   visible,
   closeContextMenu,
+  classes = ''
 }) => {
   if (!visible) return null;
 
@@ -24,7 +26,7 @@ const ContextMenu: FC<Props> = ({
 
   return (
     <div className="ContextMenu" style={style}>
-      <div className="relative z-[99] py-2 px-4">{children}</div>
+      <div className={`relative z-[99] py-2 px-4 ${classes}`} >{children}</div>
 
       <CCloser onClick={() => closeContextMenu()} />
     </div>

@@ -1,3 +1,20 @@
 {
-  "finance": "Finance"
+  "main": "Main",
+  "books_list": "List of books",
+  "books": "Books",
+  "new_book": "New Book",
+  "add_new_book": "Add new book",
+  "edit": "Edit",
+  "delete": "Delete",
+  "welcome": "Welcome",
+  "no_books": "You have no books",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
+  "name": "Name",
+  "title": "Title",
+  "author": "Author",
+  "published_year": "Published Date",
+  "pages": "Pages",
+  "number": "Number",
+  "status": "Status"
 }

@@ -53,6 +53,10 @@ const Books = () => {
         id: "isbn",
       },
       {
+        title: "status",
+        id: "status",
+      },
+      {
         title: "",
         id: "actions",
         permission: ["edit", "delete"],
@@ -63,7 +67,7 @@ const Books = () => {
   const bodyColumns = useMemo(() => {
     return (
       bookList?.map((item: any, order: number) => {
-        return { ...item.book, order: order + 1 };
+        return { ...item.book, order: order + 1, status: item.status };
       }) ?? []
     );
   }, [bookList]);
@@ -81,6 +85,8 @@ const Books = () => {
           refetch();
         });
     }
+
+    if (status === 'edit') navigateQuery({ id: element.id, status: element.status })
   };
 
   return (
