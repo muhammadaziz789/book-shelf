@@ -74,7 +74,7 @@ const Router = () => {
               link: "books",
               sidebar: true,
               title: "books",
-              icon: "admins",
+              icon: "books",
             })}
             element={<Books />}
           />
