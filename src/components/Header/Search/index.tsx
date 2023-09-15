@@ -3,7 +3,7 @@ import CSearchInput from "../../CElements/CSearchInput";
 import bookService from "../../../services/bookService/bookService";
 import { useSelector } from "react-redux";
 import useDebounce from "../../../hooks/useDebounce";
-import List from "./list";
+import List from "./List"
 
 const Search = () => {
   const user = useSelector((state: any) => state.auth.user);

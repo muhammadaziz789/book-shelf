@@ -16,5 +16,6 @@
   "published_year": "Chop etilgan sana",
   "pages": "Sahifalar",
   "number": "Raqam",
-  "status": "Status"
+  "status": "Status",
+  "required_field": "Majburiy"
 }

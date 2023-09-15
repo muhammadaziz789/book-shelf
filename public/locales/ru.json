@@ -16,5 +16,6 @@
   "published_year": "Дата публикации",
   "pages": "Страницы",
   "number": "Номер",
-  "status": "Статус"
+  "status": "Статус",
+  "required_field": "Majburiy"
 }

@@ -16,5 +16,6 @@
   "published_year": "Published Date",
   "pages": "Pages",
   "number": "Number",
-  "status": "Status"
+  "status": "Status",
+  "required_field": "Rquired field"
 }
