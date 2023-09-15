@@ -29,6 +29,18 @@ const bookService = {
       data: JSON.stringify(payload), 
     });
   },
+  handleElement: (data: { key: string; sign: string, id: string, method: string }) => {
+    const url = `books/${data.id}`
+    return request({
+      url,
+      method: data.method,
+      headers: {
+        Key: data.key,
+        Sign: md5Generator(data.method, '/'+url, "", data.sign),
+      },
+    })
+  },
+
 };
 
 export default bookService;

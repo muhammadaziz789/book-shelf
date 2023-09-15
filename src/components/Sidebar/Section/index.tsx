@@ -9,12 +9,12 @@ import { useSelector } from "react-redux";
 const SidebarSection = () => {
   const { checkPath } = usePageRouter();
   const { t } = useTranslation();
-  const routes = useSelector((state: any) => state.website.routes)
+  const routes = useSelector((state: any) => state.website.routes);
 
   const List = useMemo(() => {
-    return routes ?? []
+    return routes ?? [];
   }, [routes]);
-  
+
   return (
     <div className={cls.section}>
       {Object.entries(List)?.map(([key, value]) => (
@@ -34,10 +34,12 @@ const SidebarSection = () => {
                   }}
                   className={`${cls.menu__link} hover:bg-[var(--lineGray)] relative`}
                 >
-                  <IconGenerator
-                    icon={element?.icon}
-                    fill={checkPath(element.path, "icon")}
-                  />
+                  <div className="w-[20px]">
+                    <IconGenerator
+                      icon={element?.icon}
+                      fill={checkPath(element.path, "icon")}
+                    />
+                  </div>
                   <p>{t(element.title)}</p>
 
                   {checkPath(element.path) && (
